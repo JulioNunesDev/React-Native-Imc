@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, SafeAreaView } from 'react-native';
 import ResultImc from '../ResultImc';
+import { styles } from './style';
 
 export default function Form() {
   const [weight, setWeight] = useState(null);
@@ -25,26 +26,33 @@ export default function Form() {
   }
 
   return (
-    <SafeAreaView>
-      <View>
-        <Text>Altura</Text>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.Form}>
+        <Text style={styles.LabelText}>Altura</Text>
         <TextInput
+          style={styles.inputs}
           value={height}
           onChangeText={setHeight}
           placeholder="Ex: 1.70"
           keyboardType="numeric"
         ></TextInput>
-        <Text>Peso</Text>
-        <TextInput
+
+
+        <Text style={styles.LabelText}>Peso</Text>
+        <TextInput style={styles.inputs }
           value={weight}
           onChangeText={setWeight}
           placeholder="Ex: 70.365"
           keyboardType="numeric"
         ></TextInput>
-        <Button
+        <TouchableOpacity style={styles.buttonColor}
           onPress={() => ValidationImc()}
-          title={ValidationImc ? 'Calcular' : 'Calcular Novamente'}
-        />
+        >
+          <Text style={styles.textButtonColor}>
+            Calcular
+          </Text>
+
+        </TouchableOpacity>
       </View>
       <ResultImc resultImc={resultImc} messageImc={messageImc} />
     </SafeAreaView>
