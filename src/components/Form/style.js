@@ -55,6 +55,21 @@ export const styles = StyleSheet.create({
   },
   exibitionImc:{
   width: '100%',
-  height: '50%'
+  height: '50%',
+  padding: 10
+  },
+  listsImc:{
+  marginTop: 20
+  },
+  resultImcItem:{
+  fontSize: 26,
+  color: 'red',
+  height:  50,
+  width: '100%',
+  paddingRight: 20
+  },
+  textResultItemList:{
+  color: '#6A5ACD',
+   fontSize: 18,
   }
 });
