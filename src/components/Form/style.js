@@ -5,11 +5,11 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
     height: '70%',
     width: '100%',
-    justifyContent: 'center',
     alignItems: 'center',
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
-    marginTop: 15,
+    marginTop: 20,
+    paddingTop: 15
   },
   Form: {
     height: 'auto',
@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
     width: '90%',
     backgroundColor: '#f6f6f6',
-    margin: 12,
+    margin: 8,
     paddingLeft: 10,
   },
   buttonColor: {
@@ -48,4 +48,13 @@ export const styles = StyleSheet.create({
     color: '#ffff',
     fontSize: 17,
   },
+  erroMessage: {
+    color: '#6A5ACD',
+    fontSize: 14,
+    paddingLeft: 20
+  },
+  exibitionImc:{
+  width: '100%',
+  height: '50%'
+  }
 });

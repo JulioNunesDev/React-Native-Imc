@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   resultImc: {
     flex: 1,
     marginTop: 15,
-    paddingTop: 60,
+    paddingTop: 20,
     borderRadius: 50,
     alignItems: 'center',
     width: '100%',
@@ -17,6 +17,24 @@ export const styles = StyleSheet.create({
   numberImc: {
     fontSize: 48,
     color: '#6A5ACD',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
+    },
+    boxSharedButton:{
+      width: '100%',
+      alignItems: 'center',
+      marginBottom: 20,
+    },
+    sharedButton: {
+    backgroundColor: '#1877f2',
+    borderRadius: 50,
+    paddingTop: 5,
+    paddingBottom: 5
+    },
+    sharedText:{
+      color: '#fff',
+      paddingHorizontal: 30,
+      fontWeight: 'bold',
+    }
+
   },
-});
+);

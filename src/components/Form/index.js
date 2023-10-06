@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, SafeAreaView } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  SafeAreaView,
+  Vibration,
+  Pressable,
+  Keyboard,
+} from 'react-native';
 import ResultImc from '../ResultImc';
 import { styles } from './style';
 
@@ -8,9 +17,17 @@ export default function Form() {
   const [height, setHeight] = useState(null);
   const [resultImc, setResultImc] = useState(null);
   const [messageImc, setMessageImc] = useState('Preencha o campo');
+  const [errorMessageImc, setErrorMessageImc] = useState(null);
 
   function CalculationImc() {
-    setResultImc((weight / (height * height)).toFixed(2));
+    let heightFormat = height.replace(',', '.');
+    setResultImc((weight / (heightFormat * heightFormat)).toFixed(2));
+  }
+
+  function VerificationImc() {
+    if (resultImc === null) Vibration.vibrate();
+    setErrorMessageImc('Campo Obrigatório*');
+    return;
   }
 
   function ValidationImc() {
@@ -19,42 +36,57 @@ export default function Form() {
       setWeight(null);
       setHeight(null);
       setMessageImc('Seu IMC é:');
-      return;
+      setErrorMessageImc(null);
+      Keyboard.dismiss();
+    } else {
+      VerificationImc();
+      setMessageImc('Preencha os campo* Altura e Peso');
+      setResultImc(null);
     }
-    setMessageImc('Preencha os campo* Altura e Peso');
-    setResultImc(null);
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.Form}>
-        <Text style={styles.LabelText}>Altura</Text>
-        <TextInput
-          style={styles.inputs}
-          value={height}
-          onChangeText={setHeight}
-          placeholder="Ex: 1.70"
-          keyboardType="numeric"
-        ></TextInput>
+    <View onPress={Keyboard.dismiss} style={styles.container}>
+      {resultImc == null ? 
+        <Pressable style={styles.Form}>
+          <Text style={styles.LabelText}>Altura</Text>
+          <Text style={styles.erroMessage}>{errorMessageImc}</Text>
+          <TextInput
+            style={styles.inputs}
+            value={height}
+            onChangeText={setHeight}
+            placeholder="Ex: 1.70"
+            keyboardType="numeric"
+          ></TextInput>
 
+          <Text style={styles.LabelText}>Peso</Text>
+          <Text style={styles.erroMessage}>{errorMessageImc}</Text>
 
-        <Text style={styles.LabelText}>Peso</Text>
-        <TextInput style={styles.inputs }
-          value={weight}
-          onChangeText={setWeight}
-          placeholder="Ex: 70.365"
-          keyboardType="numeric"
-        ></TextInput>
-        <TouchableOpacity style={styles.buttonColor}
-          onPress={() => ValidationImc()}
-        >
-          <Text style={styles.textButtonColor}>
-            Calcular
-          </Text>
-
-        </TouchableOpacity>
-      </View>
-      <ResultImc resultImc={resultImc} messageImc={messageImc} />
-    </SafeAreaView>
+          <TextInput
+            style={styles.inputs}
+            value={weight}
+            onChangeText={setWeight}
+            placeholder="Ex: 70.365"
+            keyboardType="numeric"
+          ></TextInput>
+          <TouchableOpacity
+            style={styles.buttonColor}
+            onPress={() => ValidationImc()}
+          >
+            <Text style={styles.textButtonColor}>{resultImc == null ? 'Calcular' : 'Calcular Novamente'}</Text>
+          </TouchableOpacity>
+        </Pressable>
+       : 
+        <View style={styles.exibitionImc}>
+          <ResultImc resultImc={resultImc} messageImc={messageImc} />
+          <TouchableOpacity
+            style={styles.buttonColor}
+            onPress={() => ValidationImc()}
+          >
+            <Text style={styles.textButtonColor}>{resultImc == null ? 'Calcular' : 'Calcular Novamente'}</Text>
+          </TouchableOpacity>
+        </View>
+      }
+    </View>
   );
 }
